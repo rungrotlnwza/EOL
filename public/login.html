@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <!-- Add links to Bootstrap CSS and JavaScript -->
+</head>
+
+<body id="login">
+  <div id="navbar"></div>
+  <div class="container-fluid py-5 mt-5">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-lg-6 d-none d-lg-block">
+        <img src="assets/images/draw2.webp" class="img-fluid rounded-4 shadow" alt="Sample image">
+      </div>
+      <div class="col-12 col-md-8 col-lg-5">
+        <div class="card bg-secondary text-light shadow-lg border-0">
+          <div class="card-body p-4">
+            <h3 class="mb-4 text-center text-warning">Login</h3>
+            <form id="loginForm">
+              <div class="mb-3">
+                <label class="form-label" for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" autocomplete="username" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" autocomplete="current-password" required />
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-warning btn-lg" id="loginBtn">Login</button>
+              </div>
+              <p class="small fw-bold mt-3 mb-0 text-center">Don't have an account?
+                <a href="register.html" class="link-light text-decoration-underline">Register</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div id="footer"></div> -->
+  <script type="module" src="./assets/js/script.js"></script>
+</body>
+
+</html>

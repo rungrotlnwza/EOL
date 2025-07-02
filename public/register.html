@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <!-- Add links to Bootstrap CSS and JavaScript -->
+</head>
+
+<body id="register">
+  <div id="navbar"></div>
+  <div class="container-fluid py-5 mt-5">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-lg-6 d-none d-lg-block">
+        <img src="assets/images/draw2.webp" class="img-fluid rounded-4 shadow" alt="Sample image">
+      </div>
+      <div class="col-12 col-md-8 col-lg-5">
+        <div class="card bg-secondary text-light shadow-lg border-0">
+          <div class="card-body p-4">
+            <h3 class="mb-4 text-center text-warning">Register</h3>
+            <form id="registerForm">
+              <div class="mb-3">
+                <label class="form-label" for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" autocomplete="username" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" autocomplete="new-password" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm password" autocomplete="new-password" required />
+              </div>
+              <div class="d-grid">
+                <button type="button" class="btn btn-warning btn-lg" id="registerBtn">Register</button>
+              </div>
+              <p class="small fw-bold mt-3 mb-0 text-center">Already have an account?
+                <a href="login.html" class="link-light text-decoration-underline">Login</a>
+              </p>
+            </form>
+            <form id="emailForm" style="display:none">
+              <div class="mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" autocomplete="email" required />
+              </div>
+              <div class="d-grid">
+                <button type="button" class="btn btn-success btn-lg" id="emailBtn">ยืนยันอีเมล</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div id="footer"></div> -->
+  <script type="module" src="assets/js/script.js"></script>
+</body>
+
+</html>
+
+</html>

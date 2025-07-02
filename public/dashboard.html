@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body id="dashboard">
+    <div id="navbar"></div>
+    <!-- ปุ่มเปิด Offcanvas เฉพาะ mobile แบบวงกลม มุมขวาล่าง -->
+    <button class="btn btn-primary rounded-circle shadow d-flex align-items-center justify-content-center position-fixed d-block d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTabs" aria-controls="offcanvasTabs" style="width: 56px; height: 56px; bottom: 24px; right: 24px;">
+        <span class="fs-5">&#9776;</span>
+    </button>
+    <main class="container-fluid text-light mt-5">
+        <div class="row">
+            <!-- Vertical Tab: แสดงเฉพาะจอ md ขึ้นไป - Fixed Sidebar ใช้ Bootstrap utilities เท่านั้น -->
+            <div class="d-none d-md-block position-fixed top-0 start-0 bg-light border-end vh-100 overflow-auto" style="width: 200px; margin-top: 56px;">
+                <div class="nav flex-column nav-pills pt-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="profile-tab" data-bs-toggle="pill" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+                    <a class="nav-link" id="updateprofile-tab" data-bs-toggle="pill" href="#updateprofile" role="tab" aria-controls="updateprofile" aria-selected="false">Update Profile</a>
+                    <a class="nav-link" id="changpassword-tab" data-bs-toggle="pill" href="#changpassword" role="tab" aria-controls="changpassword" aria-selected="false">Change Password</a>
+                    <a class="nav-link" id="deleteacount-tab" data-bs-toggle="pill" href="#deleteacount" role="tab" aria-controls="deleteacount" aria-selected="false">Delete Account</a>
+                </div>
+            </div>
+            <!-- Offcanvas สำหรับ mobile -->
+            <div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="offcanvasTabs" aria-labelledby="offcanvasTabsLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasTabsLabel">เมนู</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="nav flex-column nav-pills" id="offcanvas-v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <!-- JS will clone tab buttons here -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-10 offset-md-2 min-vh-100">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <section id="content-profile" class="container my-4">
+                            <div class="row g-3">
+                                <!-- Profile Summary -->
+                                <div class="col-md-4">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <img id="profile-avatar" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 90px;">
+                                            <h5 class="mt-2" id="profile-fullname">-</h5>
+                                            <p class="text-muted" id="profile-role-label">-</p>
+                                            <span class="badge bg-success" id="profile-role-badge">-</span>
+                                            <p class="text-muted small mt-2" id="profile-role-desc">-</p>
+                                        </div>
+                                        <div class="card-footer bg-light">
+                                            <h6 class="mb-1">username: <span id="profile-username">-</span></h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Profile Details -->
+                                <div class="col-md-8">
+                                    <div class="card">
+                                        <div class="card-header bg-light">
+                                            <h5 class="mb-0">ข้อมูลส่วนตัว</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col-sm-4">First Name</div>
+                                                <div class="col-sm-8 text-muted" id="profile-fname">-</div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-4">Last Name</div>
+                                                <div class="col-sm-8 text-muted" id="profile-lname">-</div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-4">Gender</div>
+                                                <div class="col-sm-8 text-muted" id="profile-gender">-</div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-4">Date of Birth</div>
+                                                <div class="col-sm-8 text-muted" id="profile-dob">-</div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-4">Education</div>
+                                                <div class="col-sm-8 text-muted" id="profile-education">-</div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-4">Address</div>
+                                                <div class="col-sm-8 text-muted" id="profile-address">-</div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-4">E-mail</div>
+                                                <div class="col-sm-8 text-muted" id="profile-email">-</div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-sm-4">Tel.</div>
+                                                <div class="col-sm-8 text-muted" id="profile-phone">-</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="tab-pane fade" id="updateprofile" role="tabpanel" aria-labelledby="updateprofile-tab">
+                        <section id="content-updateprofile" class="container-fluid">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8">
+                                    <div class="card">
+                                        <div class="card-header bg-warning text-dark">
+                                            <h4 class="mb-0">แก้ไขข้อมูลส่วนตัว</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <form id="updateProfileForm">
+                                                <!-- รูปโปรไฟล์: input ซ้าย + preview ขวา -->
+                                                <div class="mb-3">
+                                                    <label for="profile-image" class="form-label">รูปโปรไฟล์ (Profile Image)</label>
+                                                    <div class="row">
+                                                        <!-- ขวา: image preview -->
+                                                        <div class="col-md-6">
+                                                            <!-- รูปปัจจุบัน -->
+                                                            <div id="current-profile-image" class="mb-3" style="display: none;">
+                                                                <p class="mb-1"><small class="text-muted">รูปโปรไฟล์ปัจจุบัน:</small></p>
+                                                                <img id="current-image-preview" src="" alt="Current Profile" style="max-width: 100%; height: auto; border-radius: 8px; border: 2px solid #ddd;">
+                                                            </div>
+                                                            <!-- รูปใหม่ -->
+                                                            <div id="new-profile-image-preview" style="display: none;">
+                                                                <p class="mb-1"><small class="text-muted">รูปใหม่ที่จะอัปโหลด:</small></p>
+                                                                <img id="new-image-preview" src="" alt="New Profile Preview" style="max-width: 100%; height: auto; border-radius: 8px; border: 2px solid #28a745;">
+                                                            </div>
+                                                        </div>
+                                                        <!-- ซ้าย: input -->
+                                                        <div class="col-md-6">
+                                                            <input type="file" class="form-control" id="profile-image" name="profile_image" accept="image/*">
+                                                            <div class="form-text">รองรับไฟล์ .jpg, .jpeg, .png, .gif ขนาดไม่เกิน 5MB</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="update-fname" class="form-label">ชื่อ (First Name)</label>
+                                                        <input type="text" class="form-control" id="update-fname" name="first_name" placeholder="กรอกชื่อ">
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="update-lname" class="form-label">นามสกุล (Last Name)</label>
+                                                        <input type="text" class="form-control" id="update-lname" name="last_name" placeholder="กรอกนามสกุล">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="update-email" class="form-label">อีเมล (Email)</label>
+                                                        <input type="email" class="form-control" id="update-email" name="email" placeholder="กรอกอีเมล" required>
+                                                        <div class="form-text">อีเมลจะใช้สำหรับการเข้าสู่ระบบและติดต่อ</div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="update-phone" class="form-label">เบอร์โทรศัพท์ (Phone)</label>
+                                                        <input type="tel" class="form-control" id="update-phone" name="phone" placeholder="กรอกเบอร์โทรศัพท์">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="update-gender" class="form-label">เพศ (Gender)</label>
+                                                        <select class="form-select" id="update-gender" name="gender">
+                                                            <option value="">เลือกเพศ</option>
+                                                            <option value="male">ชาย</option>
+                                                            <option value="female">หญิง</option>
+                                                            <option value="other">อื่นๆ</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="update-dob" class="form-label">วันเกิด (Date of Birth)</label>
+                                                        <input type="date" class="form-control" id="update-dob" name="date_of_birth">
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="update-education" class="form-label">การศึกษา (Education)</label>
+                                                    <select class="form-select" id="update-education" name="education">
+                                                        <option value="">เลือกระดับการศึกษา</option>
+                                                        <option value="มัธยมศึกษาตอนต้น">มัธยมศึกษาตอนต้น</option>
+                                                        <option value="มัธยมศึกษาตอนปลาย">มัธยมศึกษาตอนปลาย</option>
+                                                        <option value="ปวช.">ปวช.</option>
+                                                        <option value="ปวส.">ปวส.</option>
+                                                        <option value="ปริญญาตรี">ปริญญาตรี</option>
+                                                        <option value="ปริญญาโท">ปริญญาโท</option>
+                                                        <option value="ปริญญาเอก">ปริญญาเอก</option>
+                                                        <option value="อื่นๆ">อื่นๆ</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="update-address" class="form-label">ที่อยู่ (Address)</label>
+                                                    <textarea class="form-control" id="update-address" name="address" rows="3" placeholder="กรอกที่อยู่"></textarea>
+                                                </div>
+
+
+
+                                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                    <button type="button" class="btn btn-secondary me-md-2" id="loadCurrentDataBtn">โหลดข้อมูลปัจจุบัน</button>
+                                                    <button type="submit" class="btn btn-warning">บันทึกการเปลี่ยนแปลง</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <!-- แสดงสถานะการอัปเดต -->
+                                    <div id="updateStatus" class="mt-3" style="display: none;">
+                                        <div class="alert" role="alert"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="tab-pane fade" id="changpassword" role="tabpanel" aria-labelledby="changpassword-tab">
+                        <section id="content-changepassword" class="container my-4">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8">
+                                    <div class="card">
+                                        <div class="card-header bg-danger text-white">
+                                            <h4 class="mb-0">เปลี่ยนรหัสผ่าน</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <form id="changePasswordForm">
+                                                <!-- Step 1: กรอกรหัสผ่านเดิม -->
+                                                <div id="step1" class="mb-3">
+                                                    <label for="old-password" class="form-label">รหัสผ่านเดิม</label>
+                                                    <input type="password" class="form-control" id="old-password" name="old_password" placeholder="กรอกรหัสผ่านเดิม" required>
+                                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                                                        <button type="button" class="btn btn-primary" id="toStep2Btn">ถัดไป</button>
+                                                    </div>
+                                                </div>
+                                                <!-- Step 2: OTP -->
+                                                <div id="step2" class="mb-3 d-none">
+                                                    <label for="otp" class="form-label">OTP (กรุณากรอก 123456)</label>
+                                                    <input type="text" class="form-control" id="otp" name="otp" placeholder="กรอก OTP" maxlength="6" required>
+                                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                                                        <button type="button" class="btn btn-secondary me-2" id="backToStep1Btn">ย้อนกลับ</button>
+                                                        <button type="button" class="btn btn-primary" id="toStep3Btn">ถัดไป</button>
+                                                    </div>
+                                                </div>
+                                                <!-- Step 3: รหัสผ่านใหม่ -->
+                                                <div id="step3" class="mb-3 d-none">
+                                                    <label for="new-password" class="form-label">รหัสผ่านใหม่</label>
+                                                    <input type="password" class="form-control mb-2" id="new-password" name="new_password" placeholder="กรอกรหัสผ่านใหม่" required>
+                                                    <label for="confirm-password" class="form-label">ยืนยันรหัสผ่านใหม่</label>
+                                                    <input type="password" class="form-control" id="confirm-password" name="confirm_password" placeholder="ยืนยันรหัสผ่านใหม่" required>
+                                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                                                        <button type="button" class="btn btn-secondary me-2" id="backToStep2Btn">ย้อนกลับ</button>
+                                                        <button type="submit" class="btn btn-danger">เปลี่ยนรหัสผ่าน</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div id="changePasswordStatus" class="mt-3 d-none">
+                                                <div class="alert" role="alert"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="tab-pane fade" id="deleteacount" role="tabpanel" aria-labelledby="deleteacount-tab">
+                        <section id="content-deleteaccount" class="container my-4">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8">
+                                    <div class="card border-danger">
+                                        <div class="card-header bg-danger text-white">
+                                            <h4 class="mb-0">ลบบัญชีผู้ใช้</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <form id="deleteAccountForm">
+                                                <!-- Step 1: Password -->
+                                                <div id="delete-step1" class="mb-3">
+                                                    <label for="delete-password" class="form-label">กรอกรหัสผ่านเพื่อยืนยันการลบบัญชี</label>
+                                                    <input type="password" class="form-control" id="delete-password" name="password" placeholder="รหัสผ่าน" required>
+                                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                                                        <button type="button" class="btn btn-primary" id="deleteToStep2Btn">ถัดไป</button>
+                                                    </div>
+                                                </div>
+                                                <!-- Step 2: OTP -->
+                                                <div id="delete-step2" class="mb-3 d-none">
+                                                    <label for="delete-otp" class="form-label">OTP (กรุณากรอก 123456)</label>
+                                                    <input type="text" class="form-control" id="delete-otp" name="otp" placeholder="กรอก OTP" maxlength="6" required>
+                                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                                                        <button type="button" class="btn btn-secondary me-2" id="deleteBackToStep1Btn">ย้อนกลับ</button>
+                                                        <button type="button" class="btn btn-primary" id="deleteToStep3Btn">ถัดไป</button>
+                                                    </div>
+                                                </div>
+                                                <!-- Step 3: Confirm -->
+                                                <div id="delete-step3" class="mb-3 d-none">
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="checkbox" id="delete-confirm" required>
+                                                        <label class="form-check-label text-danger" for="delete-confirm">
+                                                            ฉันยืนยันว่าต้องการลบบัญชีนี้อย่างถาวร ข้อมูลทั้งหมดจะถูกลบและไม่สามารถกู้คืนได้
+                                                        </label>
+                                                    </div>
+                                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                        <button type="button" class="btn btn-secondary me-2" id="deleteBackToStep2Btn">ย้อนกลับ</button>
+                                                        <button type="submit" class="btn btn-danger">ลบบัญชีผู้ใช้</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div id="deleteAccountStatus" class="mt-3 d-none">
+                                                <div class="alert" role="alert"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ลบ <script> logic เดิมออก และเพิ่ม dashboard.js -->
+    <script type="module" src="./assets/js/script.js"></script>
+    <!-- <script type="module" src="./assets/js/dashboard.js"></script> -->
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

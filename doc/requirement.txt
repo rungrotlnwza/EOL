@@ -1,0 +1,208 @@
+# REQUIREMENT SPECIFICATION สำหรับเว็บแอปพลิเคชัน English Online Learning Platform
+
+## 1. ข้อมูลทั่วไปของระบบ
+**ชื่อระบบ:** English Online Learning Platform
+**ประเภทระบบ:** เว็บแอปพลิเคชันสำหรับการเรียนรู้ภาษาอังกฤษออนไลน์
+**เทคโนโลยีหลัก:** Node.js, Express.js, MySQL, HTML5, CSS3, JavaScript ES6+
+
+## 2. คุณสมบัติหลักของระบบ (Core Features)
+
+### 2.1 ระบบจัดการผู้ใช้งาน (User Management System)
+- **ระบบสมัครสมาชิก (Registration)**
+  - ฟอร์มสมัครสมาชิก 2 ขั้นตอน (ข้อมูลพื้นฐาน + ยืนยันอีเมล)
+  - ตรวจสอบ username และ email ซ้ำ
+  - เข้ารหัสรหัสผ่านด้วย bcrypt
+  - ระบบ Role-based (user/admin)
+
+- **ระบบเข้าสู่ระบบ (Authentication)**  
+  - เข้าสู่ระบบด้วย username/password
+  - เข้ารหัสข้อมูลด้วย JWT (JSON Web Token)
+  - ระบบ RSA encryption สำหรับความปลอดภัย
+  - ระบบ Token-based authentication
+
+- **ระบบจัดการโปรไฟล์ (Profile Management)**
+  - ดูข้อมูลส่วนตัว (Profile View)
+  - แก้ไขข้อมูลส่วนตัว (Update Profile)
+  - เปลี่ยนรหัสผ่าน (Change Password)
+  - ลบบัญชีผู้ใช้ (Delete Account)
+
+### 2.2 ระบบหน้าเว็บ (Frontend System)
+- **หน้าหลัก (Landing Page)**
+  - แสดงข้อมูลเกี่ยวกับการเรียนภาษาอังกฤษ
+  - ปุ่ม Call-to-action สำหรับสมัครสมาชิก
+  - Responsive Design ใช้งานได้ทุกอุปกรณ์
+
+- **หน้าเข้าสู่ระบบ (Login Page)**
+  - ฟอร์มเข้าสู่ระบบที่สวยงาม
+  - รองรับ Auto-complete
+  - การแสดงข้อความแจ้งเตือน
+
+- **หน้าสมัครสมาชิก (Registration Page)**
+  - ฟอร์มสมัครสมาชิกแบบ 2 ขั้นตอน
+  - การตรวจสอบข้อมูลแบบ Real-time
+  - ยืนยันรหัสผ่าน
+
+- **หน้า Dashboard (User Dashboard)**
+  - แสดงข้อมูลโปรไฟล์ผู้ใช้
+  - เมนูแบบ Tab สำหรับจัดการข้อมูล
+  - Responsive Sidebar (Desktop) และ Offcanvas (Mobile)
+  - ฟอร์มแก้ไขข้อมูลส่วนตัว
+
+### 2.3 ระบบความปลอดภัย (Security System)
+- **RSA Key Pair Generation**
+  - สร้าง Private/Public Key อัตโนมัติ
+  - เก็บ Key ในโฟลเดอร์ key/
+
+- **JWT Token Management**
+  - การสร้างและตรวจสอบ JWT Token
+  - รองรับทั้ง JWT จริงและ Fake JWT format
+  - ระบบ RS256 Algorithm
+
+- **Password Security**
+  - เข้ารหัสรหัสผ่านด้วย bcrypt
+  - Salt rounds สำหรับความปลอดภัย
+
+## 3. ข้อกำหนดทางเทคนิค (Technical Requirements)
+
+### 3.1 Backend Requirements
+- **Runtime:** Node.js (ES6+ Support)
+- **Framework:** Express.js 5.1.0
+- **Database:** MySQL 2 (mysql2 driver)
+- **Dependencies:**
+  - bcrypt ^6.0.0 (Password hashing)
+  - jsonwebtoken ^9.0.2 (JWT handling)
+  - mysql2 ^3.14.1 (Database connection)
+- **Development Tools:**
+  - nodemon ^3.1.10 (Development server)
+  - concurrently ^9.2.0 (Script runner)
+
+### 3.2 Frontend Requirements
+- **HTML5** - Semantic markup
+- **CSS3** - Bootstrap 5.3.0 framework
+- **JavaScript ES6+** - Module system
+- **Responsive Design** - Mobile-first approach
+- **CDN Libraries:**
+  - Bootstrap 5.3.0
+  - jsrsasign (สำหรับ RSA/JWT operations)
+
+### 3.3 Database Requirements
+- **Database Engine:** MySQL/MariaDB
+- **Tables:**
+  - `tb_auth` - ข้อมูลการเข้าสู่ระบบ (id, username, password, role)
+  - `tb_detail` - ข้อมูลส่วนตัว (id, first_name, last_name, email, phone, gender, date_of_birth, education, address)
+- **Relationships:** Foreign Key constraint พร้อม CASCADE DELETE
+
+## 4. โครงสร้างระบบ (System Architecture)
+
+### 4.1 File Structure
+```
+/
+├── index.js                    # Main application entry point
+├── package.json               # Project dependencies
+├── mydb.sql                   # Database schema
+├── /config/                   # Configuration files
+│   ├── connect.js            # Database connection
+│   ├── fskey.js              # RSA key file reader
+│   └── generate-keys.js      # RSA key generator
+├── /controller/              # API controllers
+│   ├── login.controller.js
+│   ├── register.controller.js
+│   ├── getUserProfile.controller.js
+│   ├── updateUserProfile.controller.js
+│   ├── changePassword.controller.js
+│   └── deleteAccount.controller.js
+├── /api/                     # API routes
+│   └── api.routes.js
+├── /routes/                  # Web routes
+│   └── public.routes.js
+├── /public/                  # Static files
+│   ├── index.html           # Landing page
+│   ├── login.html           # Login page
+│   ├── register.html        # Registration page
+│   ├── dashboard.html       # User dashboard
+│   └── /assets/             # CSS, JS, Images
+└── /key/                    # RSA keys storage
+    ├── privatekey.pem
+    └── publickey.pem
+```
+
+### 4.2 API Endpoints
+- `POST /api/getPublickey` - รับ Public Key
+- `POST /api/register` - สมัครสมาชิก
+- `POST /api/login` - เข้าสู่ระบบ
+- `POST /api/getUserProfile` - ดูข้อมูลโปรไฟล์
+- `POST /api/updateUserProfile` - แก้ไขโปรไฟล์
+- `POST /api/changePassword` - เปลี่ยนรหัสผ่าน
+- `POST /api/deleteAccount` - ลบบัญชี
+
+## 5. คุณสมบัติพิเศษ (Special Features)
+
+### 5.1 Modular Frontend Architecture
+- Component-based structure (navbar, footer)
+- Dynamic module loading
+- Page-specific JavaScript modules
+
+### 5.2 Advanced Security Features
+- Fake JWT format support (RS256.base64payload.signature)
+- Base64 fallback decoding
+- Multiple encryption layer support
+
+### 5.3 User Experience Features
+- Responsive navigation (Desktop sidebar + Mobile offcanvas)
+- Form validation with real-time feedback
+- Modern UI with Bootstrap styling
+- Auto-generated RSA keys on server startup
+
+## 6. ข้อกำหนดการติดตั้งและการใช้งาน
+
+### 6.1 System Requirements
+- Node.js version 16.0+ 
+- MySQL/MariaDB 5.7+
+- Modern web browser with ES6+ support
+
+### 6.2 Installation Steps
+1. Install Node.js dependencies: `npm install`
+2. Setup MySQL database using `mydb.sql`
+3. Configure database connection in `config/connect.js`
+4. Start development server: `npm run dev`
+5. Access application at `http://localhost:80`
+
+### 6.3 Database Configuration
+- Host: localhost
+- Database: mydb
+- Default user: root
+- Tables will be created automatically from `mydb.sql`
+
+## 7. การบำรุงรักษาและการพัฒนาต่อ (Maintenance & Future Development)
+
+### 7.1 Scalability Considerations
+- Connection pooling for database
+- JWT token expiration handling
+- Session management
+- Error logging system
+
+### 7.2 Potential Enhancements
+- Email verification system
+- Password reset functionality
+- User profile image upload
+- Multi-language support
+- Learning progress tracking
+- Interactive English lessons
+- Quizzes and assessments
+- Certificate generation
+
+## 8. ข้อจำกัดและข้อสังเกต (Limitations & Notes)
+
+### 8.1 Current Limitations
+- ระบบยังไม่มีการส่งอีเมลจริง (Email verification placeholder)
+- ไม่มีระบบ Password recovery
+- ไม่มี Rate limiting สำหรับ API
+- ไม่มีระบบ Logging
+
+### 8.2 Development Notes
+- ระบบใช้ Fake JWT format เพื่อการทดสอบ
+- RSA keys จะถูกสร้างใหม่ทุกครั้งที่ server restart
+- Database password จะต้องถูกเปลี่ยนตามสิ่งแวดล้อมจริง
+
+---
+**หมายเหตุ:** Requirement นี้อิงจากการวิเคราะห์โค้ดที่มีอยู่ และสามารถปรับปรุงเพิ่มเติมได้ตามความต้องการของลูกค้า
